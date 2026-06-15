@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import "~leaflet/dist/leaflet.css";
+
+:root {
+  --bg:       #0D1117;
+  --surface:  #161B22;
+  --card:     #1C2128;
+  --border:   #30363D;
+  --text:     #E6EDF3;
+  --muted:    #8B949E;
+  --blue:     #2563EB;
+  --blue-h:   #1D4ED8;
+  --teal:     #0D9488;
+  --green:    #22C55E;
+  --amber:    #F59E0B;
+  --red:      #EF4444;
+  --radius:   12px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* Cards */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 500;
+  cursor: pointer; border: none; transition: all 0.15s;
+  text-decoration: none;
+}
+.btn-primary  { background: var(--blue);    color: #fff; }
+.btn-primary:hover  { background: var(--blue-h); }
+.btn-outline  { background: transparent; color: var(--text); border: 1px solid var(--border); }
+.btn-outline:hover  { border-color: var(--blue); color: var(--blue); }
+.btn-danger   { background: transparent; color: var(--red); border: 1px solid var(--red); }
+.btn-danger:hover   { background: rgba(239,68,68,0.1); }
+.btn-sm       { padding: 6px 14px; font-size: 13px; }
+
+/* Status badges */
+.badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500;
+}
+.badge-pending   { background: rgba(245,158,11,0.15); color: var(--amber); }
+.badge-confirmed { background: rgba(34,197,94,0.15);  color: var(--green); }
+.badge-cancelled { background: rgba(139,148,158,0.15); color: var(--muted); }
+.badge-completed { background: rgba(37,99,235,0.15);  color: #60A5FA; }
+
+/* Form inputs */
+.input {
+  width: 100%; padding: 10px 14px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 8px; color: var(--text); font-size: 14px; font-family: inherit;
+  transition: border-color 0.15s;
+}
+.input:focus { outline: none; border-color: var(--blue); }
+.input::placeholder { color: var(--muted); }
+
+label { display: block; margin-bottom: 6px; font-size: 13px; color: var(--muted); }
+
+/* Leaflet override */
+.leaflet-container { border-radius: var(--radius); }
+.leaflet-popup-content-wrapper {
+  background: var(--card) !important; color: var(--text) !important;
+  border: 1px solid var(--border) !important; border-radius: 10px !important;
+}
+.leaflet-popup-tip { background: var(--card) !important; }
