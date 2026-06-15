@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect width="100%" height="100%" fill="#f3f4f6"/>
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="28">
+    Demo screenshot placeholder
+  </text>
+  <rect x="40" y="560" width="1200" height="100" fill="#e5e7eb" rx="6"/>
+  <text x="60" y="600" fill="#6b7280" font-size="14">Replace this SVG with an actual screenshot (1280x720 recommended)</text>
+</svg>

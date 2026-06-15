@@ -13,11 +13,13 @@ cd backend
 cp .env.example .env
 ```
 
-`.env` файлд байгаа MONGODB_URI аль хэдийн чиний Atlas-тай холбогдсон байна:
+`.env` файлд `MONGODB_URI`-г өөрийн MongoDB хаягаар тохируулна. Жишээ (нууц үг болон хэрэглэгчийн мэдээллийг тавихгүй):
 
 ```
-MONGODB_URI=mongodb+srv://batsuuri:7okXm8EovrqLBKFE@cluster0.mgsb1ee.mongodb.net/zahialga?retryWrites=true&w=majority
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/zahialga?retryWrites=true&w=majority
 ```
+
+Анхаарах: Нууц үг, API түлхүүр зэргийг репозиторид оруулахгүй; `.env` файл нь `.gitignore`-д орсон байх ёстой.
 
 ### 2. Backend суулгах, seed хийх
 
@@ -40,15 +42,16 @@ npm start           # http://localhost:3000
 
 ## 🔑 Нэвтрэх мэдээлэл
 
-| Хэрэглэгч | Имэйл               | Нууц үг     |
-| --------- | ------------------- | ----------- |
-| Admin     | admin@zahialga.mn   | admin123    |
-| User 1    | batsuurii@gmail.com | password123 |
-| User 2    | bolormaa@gmail.com  | password123 |
+Туршилтын аккаунтууд болон жишээ хэрэглэгчийн нууц үгийг README-д шууд оруулахгүй. Туршилт хийхийн тулд `backend/seed.js` скрипт ашиглан жишээ өгөгдөл үүсгэнэ:
 
----
+```bash
+cd backend
+node seed.js
+```
 
-## 🌐 Хуудсууд
+## Дараа нь `.env`-д тохирох тестийн тохиргоог оруулна.
+
+## Хуудсууд
 
 | URL             | Тайлбар                                      |
 | --------------- | -------------------------------------------- |
@@ -62,7 +65,7 @@ npm start           # http://localhost:3000
 
 ---
 
-## 🏗 Технологийн стек
+## Технологийн стек
 
 **Frontend:** React.js 18, React Router 6, Axios, Leaflet (OpenStreetMap)
 
@@ -74,7 +77,7 @@ npm start           # http://localhost:3000
 
 ---
 
-## 📊 ERD — Collection-уудын бүтэц
+## ERD — Collection-уудын бүтэц
 
 ```
 users       → businesses (1:N — өмчилнө)
@@ -89,7 +92,7 @@ seats       → bookings   (1:N)
 
 ---
 
-## 📡 API Endpoints
+## API Endpoints
 
 ```
 POST   /api/auth/register
@@ -115,3 +118,52 @@ GET    /api/schedules/:businessId
 GET    /api/services/:businessId
 GET    /api/admin/stats          (admin)
 ```
+
+---
+
+## СИСТЕМИЙН АРХИТЕКТУР (Desktop / Embedded / Бусад)
+
+Энэ систем нь дараах үндсэн бүрэлдэхүүнээр бүтээгдэнэ:
+
+- Клиент (Frontend): React + Leaflet ашиглан газрын зураг, хэрэглэгчийн интерфэйс харуулна.
+- Сервер (Backend): Node.js + Express API, хэрэглэгчийн аутентификаци, бизнесийн логик, REST endpoints.
+- Сан (Database): MongoDB (Atlas эсвэл локал), Mongoose ODM.
+- Реал-тайм мэдэгдэл: WebSocket (socket.io) эсвэл long-polling ашиглан шууд мэдэгдэл дамжуулна.
+- Файлууд / Медиа: Үйлчилгээний зураг, демо видео зэргийг `/docs` хавтасанд байрлуулна.
+
+Архитектурын ерөнхий урсгал:
+
+1. Хэрэглэгч браузer-аас HTTP/HTTPS хүсэлт илгээх (React).
+2. Сервер хүсэлтийг боловсруулж, шаардлагатай бол MongoDB-тай харьцана.
+3. Хүсэлтийн үр дүнг клиент руу буцаана; real-time мэдэгдэл шаардлагатай бол socket дамжуулна.
+
+---
+
+## ХАРАА ХАЖУУ: Hardware / Software шаардлага
+
+- Hardware (dev): 4 GB RAM / 2 CPU, 10 GB диск, сүлжээний холболт.
+- Hardware (prod, жижиг): 1-2 vCPU, 2-4 GB RAM, 20 GB SSD (эсвэл cloud контейнер).
+- Software (dev): Node.js >= 18 ( санал болгож байна Node.js 20), npm/yarn, Git.
+- Software (DB): MongoDB Atlas эсвэл MongoDB v5+ локал суулгалт.
+- Browsers: Chrome/Firefox/Edge шинэ хувилбарууд, Leaflet maps-г дэмжих Javascript.
+- Optional: HTTPS (TLS) сертификат, process manager (PM2) эсвэл container runtime (Docker).
+
+---
+
+## ДЕМО, СКРИНОШОТ, ВИДЕО
+
+Демо зураг, видео зэргийг `docs/` хавтасанд байршуулсан. Одоогоор баримт, placeholder файлууд байна:
+
+- `docs/demo_screenshot.svg` — screenshot placeholder
+- `docs/README.md` — доторх демо тайлбар
+- `docs/demo_video_instructions.md` — видео байрлуулах заавар
+
+Та өөрийн видео (`demo.mp4`) эсвэл өндөр нягтралтай зураг `docs/` хавтас руу хуулаад README-д дурдсанчлан холбож болно.
+
+---
+
+## Аюулгүй байдал, хориглох зүйлс
+
+- Нууц үг, API түлхүүр, токен зэргийг кодын дотор шууд бичихгүй. `.env` ашиглах.
+- Гадаад хүний кодыг зөвшөөрөлгүй хуулбарлахгүй.
+- Хоосон эсвэл дутуу репозиторийг илгээхгүй.
